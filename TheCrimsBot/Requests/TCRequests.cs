@@ -97,8 +97,8 @@ namespace TheCrimsBot.Requests
             
             string myJson = "{\"id\":" + bestRobID + "}";
             var response = client.PostAsync("/api/v1/rob", new StringContent(myJson, Encoding.UTF8, "application/json"));
-            response.Result.EnsureSuccessStatusCode();
             string robberiesHtml = response.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            response.Result.EnsureSuccessStatusCode();
             
             TCParser parser = new TCParser(robberiesHtml);
             robberies = parser.getRobberiesData();
