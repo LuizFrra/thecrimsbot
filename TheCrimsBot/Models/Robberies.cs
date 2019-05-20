@@ -5,6 +5,8 @@ namespace TheCrimsBot.Models
     public class Robberies
     {
         public List<SingleRobbery> single_robberies { get; set; }
+
+        public User user { get; set;}
     
         public SingleRobbery getBestRobbery(int minSuccess)
         {

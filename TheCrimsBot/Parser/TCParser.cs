@@ -33,7 +33,7 @@ namespace TheCrimsBot.Parser
             HtmlDocument document = new HtmlDocument();
             document.OptionFixNestedTags = true;
             document.LoadHtml(html);
-
+        
             string jsDataHtml = document.DocumentNode.SelectSingleNode("//script[contains(., 'window.userState')]").InnerHtml;
 
             Regex rx = new Regex(@"""\w+"":(""\w+""|(\d+))", RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -48,9 +48,8 @@ namespace TheCrimsBot.Parser
                 jsDataHtml += match.Value + ",";
             
             jsDataHtml = jsDataHtml.Remove(jsDataHtml.Length - 1) + "}";
-            Dictionary<string, string> jsonData = JsonConvert.DeserializeObject<Dictionary<string,string>>(jsDataHtml);
+            User user = JsonConvert.DeserializeObject<User>(jsDataHtml);
             
-            User user = new User(jsonData);
             user.stateName = stateName;
 
             return user;
@@ -58,13 +57,18 @@ namespace TheCrimsBot.Parser
 
         public Robberies getRobberiesData()
         {
-            //html = System.IO.File.ReadAllText("tc.txt");
-            //string jsonDataHtml = html;
-            //Console.WriteLine(jsonDataHtml);
-
-            return JsonConvert.DeserializeObject<Robberies>(html);
-            
-            //return jsonData;
+            return JsonConvert.DeserializeObject<Robberies>(html);   
         }
+
+        public NightClubs getNightClubsData()
+        {
+            return JsonConvert.DeserializeObject<NightClubs>(html);
+        }
+
+        public NightClubDrugs getNightClubDrugs()
+        {
+            return JsonConvert.DeserializeObject<NightClubDrugs>(html);
+        }
+
     }
 }

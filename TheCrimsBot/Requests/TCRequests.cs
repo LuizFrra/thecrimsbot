@@ -18,9 +18,13 @@ namespace TheCrimsBot.Requests
 
         private HttpClient client;
 
-        public User user { get; private set;}
+        public User user { get; private set; }
 
-        public Robberies robberies { get; private set;}
+        public Robberies robberies { get; private set; }
+
+        public NightClubs nightClubs { get; private set; }
+        
+        public NightClubDrugs nightClubDrugs { get; private set; }
 
         private string html;
 
@@ -58,29 +62,39 @@ namespace TheCrimsBot.Requests
             parser.setHtml(loginResult.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult());
             //Console.WriteLine(loginResult.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult());
             user = parser.getUserData();
-
+            //Console.WriteLine(user.stateName);
             client.DefaultRequestHeaders.Add("x-request", user.stateName);
             //Console.WriteLine(user.ToString());
 
             return user;
         }
 
-        public Robberies getRobberies()
+        private Robberies getRobberies()
         {
+            Console.WriteLine("Pegando os assaltos disponiveis");
             var robberiesResult = client.GetAsync("/api/v1/robberies");
             robberiesResult.Result.EnsureSuccessStatusCode();
             string robberiesHtml = robberiesResult.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
             TCParser parser = new TCParser(robberiesHtml);
-            
+            //Console.WriteLine(robberiesHtml);
             robberies = parser.getRobberiesData();
             
-            //Console.WriteLine(robberies.getBestRobbery(95).ToString());
+            //string stateName = user.stateName;
+            user = robberies.user;
+            //user.stateName = stateName;
+    
             return robberies;
         }
 
         public void doRobbery(int minSuccess)
         {
-            int bestRobID = robberies.getBestRobbery(minSuccess).id;
+            getRobberies();
+            SingleRobbery robbery = robberies.getBestRobbery(minSuccess);
+            int bestRobID = robbery.id;
+            Console.WriteLine("Assaltando : " + robbery.translated_name);
+            if(user.stamina < robbery.energy)
+                buyDrug();
+            
             string myJson = "{\"id\":" + bestRobID + "}";
             var response = client.PostAsync("/api/v1/rob", new StringContent(myJson, Encoding.UTF8, "application/json"));
             response.Result.EnsureSuccessStatusCode();
@@ -90,9 +104,47 @@ namespace TheCrimsBot.Requests
             robberies = parser.getRobberiesData();
         }
 
-        public void getNightClubs()
+        private void getNightClubs()
         {
+            Console.WriteLine("Pegando os clubs Disponiveis");
+            var nightClubsResult = client.GetAsync("/api/v1/nightclubs");
+            nightClubsResult.Result.EnsureSuccessStatusCode();
+            string nightClubsHtml = nightClubsResult.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            TCParser parser = new TCParser(nightClubsHtml);
             
+            nightClubs = parser.getNightClubsData();
+        }
+
+        private void goInNightClub()
+        {
+            getNightClubs();
+            Console.WriteLine("Entrando em um club");
+            string bestNightClubId = nightClubs.getBestNightClub(user.respect).id;
+            string myJson = "{\"id\": " + "\"" + bestNightClubId + "\"" + "}";
+            var response = client.PostAsync("/api/v1/nightclub", new StringContent(myJson, Encoding.UTF8, "application/json"));
+            Console.WriteLine(myJson);
+            response.Result.EnsureSuccessStatusCode();
+            string nightClubsHtml = response.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+            
+            TCParser parser = new TCParser(nightClubsHtml);
+            nightClubDrugs = parser.getNightClubDrugs();
+            
+            user = nightClubDrugs.user;
+        }
+
+        public void buyDrug()
+        {
+            goInNightClub();
+            Console.WriteLine("Comprando drogas.");
+            int drugId = 0;
+            double quantity = 0;
+            nightClubDrugs.buyBestDrug(out drugId, out quantity, user.stamina, user.cash);
+            string myJson = "{\"id\":" + drugId + ", \"quantity\": \""+ (int)quantity +"\"}";
+            Console.WriteLine(myJson);
+            var response = client.PostAsync("/api/v1/nightclub/drug", new StringContent(myJson, Encoding.UTF8, "application/json"));
+
+            response.Result.EnsureSuccessStatusCode();
+            //Console.WriteLine(response.Result.Content.ReadAsStringAsync().GetAwaiter().GetResult());
         }
     }
 }
