@@ -1,0 +1,66 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/TheCrimsBot.csproj": {}
+  },
+  "projects": {
+    "/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/TheCrimsBot.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/TheCrimsBot.csproj",
+        "projectName": "TheCrimsBot",
+        "projectPath": "/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/TheCrimsBot.csproj",
+        "packagesPath": "/home/luiz/.nuget/packages/",
+        "outputPath": "/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/obj/",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "/home/luiz/.dotnet/sdk/NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "/home/luiz/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.2"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.2": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.2": {
+          "dependencies": {
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.4, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.2.0, )",
+              "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.2, )"
+            }
+          },
+          "imports": [
+            "net461"
+          ],
+          "assetTargetFallback": true,
+          "warn": true
+        }
+      }
+    }
+  }
+}

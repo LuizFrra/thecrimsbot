@@ -1,0 +1,11 @@
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/bin/Debug/netcoreapp2.2/TheCrimsBot.deps.json
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/bin/Debug/netcoreapp2.2/TheCrimsBot.runtimeconfig.json
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/bin/Debug/netcoreapp2.2/TheCrimsBot.runtimeconfig.dev.json
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/bin/Debug/netcoreapp2.2/TheCrimsBot.dll
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/bin/Debug/netcoreapp2.2/TheCrimsBot.pdb
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/obj/Debug/netcoreapp2.2/TheCrimsBot.csprojAssemblyReference.cache
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/obj/Debug/netcoreapp2.2/TheCrimsBot.csproj.CoreCompileInputs.cache
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/obj/Debug/netcoreapp2.2/TheCrimsBot.AssemblyInfoInputs.cache
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/obj/Debug/netcoreapp2.2/TheCrimsBot.AssemblyInfo.cs
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/obj/Debug/netcoreapp2.2/TheCrimsBot.dll
+/home/luiz/Desktop/git/thecrimsbot/TheCrimsBot/obj/Debug/netcoreapp2.2/TheCrimsBot.pdb
