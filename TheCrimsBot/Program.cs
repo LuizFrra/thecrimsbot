@@ -14,7 +14,7 @@ namespace TheCrimsBot
         {
 
             TCRequests req = new TCRequests();
-            req.login("SrPoe", "b9bb8b27fbb3");
+            req.login("user", "password");
             //req.getNightClubs();
             //req.goInNightClub();
             //req.buyDrug();
@@ -26,7 +26,7 @@ namespace TheCrimsBot
                 int second = rnd.Next(1, 9) * 100;
                 int third = rnd.Next(1, 9) * 10;
                 int fourth = rnd.Next(1, 9);
-                req.doRobbery(90);
+                req.doRobbery(90); // Nivel de sucesso minimo
                 Console.WriteLine("Assalto feito");
                 System.Threading.Thread.Sleep(first + second + third + fourth);
             }
